@@ -11,8 +11,11 @@
     background-color:silver;
 }
     /*Define the classes below*/
-    .class{
+    .wrapper{
         height:500px;
         width:500px;
-        margin:auto;
+    }
+    .pokeSprite{
+        height:75px;
+        width:auto;
     }
