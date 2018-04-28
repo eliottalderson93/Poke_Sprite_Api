@@ -8,14 +8,17 @@
 .wrapper{
     min-height:1000px;
     min-width:1000px;
-    background-color:silver;
+    background-color:white;
+    z-index:-2;
+    position:absolute;
 }
     /*Define the classes below*/
-    .wrapper{
-        height:500px;
-        width:500px;
+    #put{
+        height:1600px;
+        width:1600px;
+        background-color:white;
     }
     .pokeSprite{
         height:75px;
-        width:auto;
+        width:75px;
     }
