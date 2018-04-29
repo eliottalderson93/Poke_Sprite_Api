@@ -14,9 +14,16 @@
 }
     /*Define the classes below*/
     #put{
-        height:1600px;
-        width:1600px;
+        height:760px;
+        width:760px;
         background-color:white;
+    }
+    .dex{
+        border:5px solid red;
+        position:fixed;
+        margin-left:760px;
+        width:250px;
+        height:500px;
     }
     .pokeSprite{
         height:75px;

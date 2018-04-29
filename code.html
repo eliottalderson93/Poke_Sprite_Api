@@ -1,50 +1,67 @@
 <html>
-    <head>
-        <title>PokeSprite</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script type = "text/javascript">
 
-            $(document).ready(function(){
-                var image = [];
-                var url = '';
-                spriteURL = '';
-                // $('.test').append('<p>appendme!<p>');
-                for(var k =130; k<=151;k++){
-                    // console.log(k);
-                    url = 'https://pokeapi.co/api/v2/pokemon/'+k+'/';
-
-                    $.getJSON(url,function(data){
-                        // console.log(JSON.stringify(data.forms[0]));
-                        spriteURL = data.sprites.front_default;
-                        console.log(spriteURL);
-                        $('#put').append('<img class = "PokeSprite" src ="'+spriteURL+'">');
-                    });
-                    console.log(spriteURL);
-
-                   
+<head>
+    <title>PokeSprite</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+            function displayDex(imageID){
+            $('#name').html('<p id = "name">name: ' + poke[imageID].name + '</p>');
+            $('#types').html('<p id = "types">types: ' + poke[imageID].type1 + ', ' + poke[imageID].type2 + '</p>');
+            $('#height').html('<p id = "height">height: ' + poke[imageID].height + ' km</p>');
+            $('#weight').html('<p id = "weight">weight: ' + poke[imageID].weight + ' lbs</p>');
+            }
+            var url = '';
+            var count = 0;
+            poke = [];
+            // $('.test').append('<p>appendme!<p>');
+            for (var k = 100; k <= 121; k++) {
+                // console.log(k);
+                url = 'https://pokeapi.co/api/v2/pokemon/' + k + '/';
+                // poke[count].spriteURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + k + '.png';
+                $.getJSON(url, function (data) {
+                    poke.push({ id: (count + 100), name:'default', spriteURL: 'default', type1: 'default', type2: '', height: 0, weight: 0 });
+                    // console.log(JSON.stringify(data.sprites.front_default));
+                    poke[count].spriteURL = data.sprites.front_shiny; //old url
+                    poke[count].name = data.forms[0].name;
+                    console.log(count);
+                    poke[count].type1 = data.types[0].type.name;
+                    console.log(data.types[0].type.name);
+                    if (data.types[1] != undefined) {
+                        poke[count].type2 = data.types[1].type.name;
+                        console.log(data.types[1].type.name);
+                    }
+                    poke[count].height = data.height;
+                    console.log(data.height);
+                    poke[count].weight = data.weight;
+                    console.log(data.weight);
+                    $('#put').append('<img class = "PokeSprite" src ="' + data.sprites.front_shiny + '"' + 'id =' + poke[count].id + '>');
+                    count++;
+                    // console.log(poke[count].spriteURL); old url
+                }, $('img').on('click', imageID = $(this).attr('id'), displayDex(imageID))); //
+                // console.log(poke[count]);
                 // $('.wrapper').append('<img class = PokeSprite src ='+url);
-                }
-                // $.getJSON(
-                //     'https://pokeapi.co/api/v2/pokemon/1',
-                // http://pokeapi.co/api/v2/pokemon/1/
-                //     'forms',
-                //     console.log()
-                // );  http://pokeapi.co/api/v2/pokemon/
-                // $.getJSON(function(){ /*maybe look at $*/
-                //     console.log(.)
-                //     for(var i = 0; i<20;i++){
-                //         address.push()
-                //     }
-                // console.log(address);
-                });
-        </script>
-    </head>
-    <body>
-        <div class = 'wrapper'>
-            <div id = 'put'>
+            }
+            // for(var j =0;j<=21;j++){
+            //     
+            // }
+        });
+    </script>
+</head>
 
-            </div>
+<body>
+    <div class='wrapper'>
+            <div class='dex'>
+                    <p id = 'name'>default name</p>
+                    <p id='types'>ex type</p>
+                    <p id='height'>over 4000</p>
+                    <p id='weight'>under 9000</p>
+                </div>
+        <div id='put'>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>
